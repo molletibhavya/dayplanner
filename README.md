@@ -1,1 +1,1 @@
-imdex.html
+index.html
