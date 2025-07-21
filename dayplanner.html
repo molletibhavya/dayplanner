@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day Planner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .time-block {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .hour {
+      width: 80px;
+      text-align: right;
+      padding-right: 10px;
+      font-weight: bold;
+    }
+
+    textarea {
+      flex: 1;
+      padding: 8px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+      height: 40px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day Planner</h1>
+    <div id="planner"></div>
+  </div>
+
+  <script>
+    const plannerContainer = document.getElementById("planner");
+
+    const hours = [
+      "9 AM", "10 AM", "11 AM", "12 PM",
+      "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"
+    ];
+
+    hours.forEach((hour, index) => {
+      const block = document.createElement("div");
+      block.className = "time-block";
+
+      const hourLabel = document.createElement("div");
+      hourLabel.className = "hour";
+      hourLabel.innerText = hour;
+
+      const textarea = document.createElement("textarea");
+      textarea.id = `task-${index}`;
+      textarea.value = localStorage.getItem(`task-${index}`) || "";
+
+      const saveBtn = document.createElement("button");
+      saveBtn.innerText = "Save";
+      saveBtn.addEventListener("click", () => {
+        localStorage.setItem(`task-${index}`, textarea.value);
+        alert("Saved!");
+      });
+
+      block.appendChild(hourLabel);
+      block.appendChild(textarea);
+      block.appendChild(saveBtn);
+
+      plannerContainer.appendChild(block);
+    });
+  </script>
+</body>
+</html>
